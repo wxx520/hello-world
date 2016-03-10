@@ -35,7 +35,7 @@ public class CookieServlet1 extends HttpServlet {
 			
 			Cookie ckName = new Cookie("name",name);
 			Cookie ckNickname = new Cookie("nickname",nickname);
-//			ckNickname.setMaxAge(365*24*3600);
+			ckNickname.setMaxAge(365*24*3600);
 			Cookie ckEmail = new Cookie("email","test@wxx.cn");
 			Cookie ckPhone = new Cookie("phone","18616380408");
 			
@@ -55,7 +55,7 @@ public class CookieServlet1 extends HttpServlet {
 		
 		for(int i=0;cks!=null&&i<cks.length;i++){
 			if("nickname".equals(cks[i].getName())){
-				lastNickname = cks[i].getName();
+				lastNickname = cks[i].getValue();
 				break;
 			}
 		}
