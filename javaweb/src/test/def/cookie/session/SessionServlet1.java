@@ -3,7 +3,6 @@ package test.def.cookie.session;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,36 +21,22 @@ public class SessionServlet1 extends HttpServlet {
 		HttpSession session = request.getSession();
 		Integer sessionCount = (Integer)session.getAttribute("count");
 		
-		int count = 0;
-		
+		int sCount = 0;
 		if(sessionCount != null) {
-			
-			count = sessionCount.intValue();
-			
+			sCount = sessionCount.intValue();
 		}
+		out.println("当前会话中发生了 " +(++sCount) + " 次访问!<br>");
+		session.setAttribute("count", sCount);
 		
-		out.println("当前会话中发生了 " +(++count) + " 次访问!<br>");
 		
-		request.setAttribute("count", new Integer(count));
-		
-		count = 0;
-		ServletContext application = getServletContext();
-		
-		Integer applicationCount = (Integer) application.getAttribute("count");
-		
-		if(application != null) {
-			
-			count = applicationCount.intValue();
-			
+		Integer requestCount = (Integer) request.getAttribute("count");
+		int rCount = 0;
+		if(requestCount != null) {
+			rCount = requestCount.intValue();
 		}
+		request.setAttribute("count", ++rCount);
+		out.println("当前请求中的count：" + rCount);
 		
-		out.println("Web应用程序中发生了 " +(++count) + " 次访问!<br>");
-		
-		out.println("<a href='SessionServlet2'>访问SessionServlet2</a>");
-		
-		
+		out.println("<a href='SessionServlet1'>访问SessionServlet1</a>");
 	}
-	
-	
-
 }
